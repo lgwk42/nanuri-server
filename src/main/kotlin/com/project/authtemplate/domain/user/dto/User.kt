@@ -9,8 +9,8 @@ data class User(
     val phoneNumber: String,
     val name: String,
     val password: String,
-    var latitude: String,
-    var longitude: String,
+    var latitude: Double,
+    var longitude: Double,
     val userRole: UserRole
 
 ){

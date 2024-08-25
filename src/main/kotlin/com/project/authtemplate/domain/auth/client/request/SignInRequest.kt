@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.Email
 
 data class SignInRequest(
-    @JsonProperty("email")
+    @JsonProperty("phoneNumber")
     val phoneNumber: String,
     @JsonProperty("password")
     val password: String

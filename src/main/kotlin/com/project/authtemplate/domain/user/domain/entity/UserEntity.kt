@@ -26,10 +26,10 @@ data class UserEntity(
     var password: String,
 
     @Column(nullable = false)
-    var latitude: String,
+    var latitude: Double,
 
     @Column(nullable = false)
-    var longitude: String,
+    var longitude: Double,
 
     @Column(nullable = false)
     val userRole: UserRole
