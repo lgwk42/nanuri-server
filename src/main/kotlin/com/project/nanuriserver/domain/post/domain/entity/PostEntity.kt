@@ -1,6 +1,7 @@
 package com.project.nanuriserver.domain.post.domain.entity
 
 import com.project.nanuriserver.domain.post.domain.enum.Category
+import com.project.nanuriserver.domain.post.domain.enum.Status
 import com.project.nanuriserver.global.common.entity.BaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -27,6 +28,10 @@ class PostEntity(
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     val category: Category,
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    val status: Status,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
