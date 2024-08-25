@@ -3,13 +3,14 @@ package com.project.nanuriserver.domain.post.client.dto
 import com.project.nanuriserver.domain.post.domain.entity.PostEntity
 import com.project.nanuriserver.domain.post.domain.enum.Category
 import org.springframework.stereotype.Component
+import java.util.UUID
 
 data class Post(
 
     val idx: Long? = null,
     val title: String,
     val content: String,
-    val author: String,
+    val uuid: UUID,
     val imageUrl: String,
     val category: Category
 
@@ -21,7 +22,7 @@ data class Post(
             return Post(
                 title = postEntity.title,
                 content = postEntity.content,
-                author = postEntity.author,
+                uuid = postEntity.uuid,
                 imageUrl = postEntity.imageUrl,
                 category = postEntity.category
             )
@@ -31,7 +32,7 @@ data class Post(
             return PostEntity(
                 title = post.title,
                 content = post.content,
-                author = post.author,
+                uuid = post.uuid,
                 imageUrl = post.imageUrl,
                 category = post .category
             )

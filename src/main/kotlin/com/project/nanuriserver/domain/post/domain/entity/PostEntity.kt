@@ -9,6 +9,7 @@ import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import java.util.UUID
 
 @Entity
 class PostEntity(
@@ -24,7 +25,7 @@ class PostEntity(
     val content: String,
 
     @Column(nullable = false)
-    val author: String,
+    val uuid: UUID,
 
     val imageUrl: String,
 
