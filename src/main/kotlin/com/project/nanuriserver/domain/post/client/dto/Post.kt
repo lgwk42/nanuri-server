@@ -10,7 +10,7 @@ data class Post(
     val idx: Long? = null,
     val title: String,
     val content: String,
-    val uuid: UUID,
+    val author: UUID,
     val imageUrl: String,
     val category: Category
 
@@ -22,7 +22,7 @@ data class Post(
             return Post(
                 title = postEntity.title,
                 content = postEntity.content,
-                uuid = postEntity.uuid,
+                author = postEntity.author,
                 imageUrl = postEntity.imageUrl,
                 category = postEntity.category
             )
@@ -32,7 +32,7 @@ data class Post(
             return PostEntity(
                 title = post.title,
                 content = post.content,
-                uuid = post.uuid,
+                author = post.author,
                 imageUrl = post.imageUrl,
                 category = post .category
             )

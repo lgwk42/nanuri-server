@@ -25,7 +25,7 @@ class PostEntity(
     val content: String,
 
     @Column(nullable = false)
-    val uuid: UUID,
+    val author: UUID,
 
     val imageUrl: String,
 

@@ -16,7 +16,7 @@ class PostService(
         postJpaRepository.save(Post.toEntity(Post(
             title = request.title,
             content = request.content,
-            uuid = userSecurity.getUser().uuid,
+            author = userSecurity.getUser().uuid,
             imageUrl = request.imageUrl,
             category = request.category,
         )))
