@@ -12,7 +12,7 @@ data class SignUpRequest(
     @JsonProperty("password")
     val password: String,
     @JsonProperty("latitude")
-    var latitude: String,
+    var latitude: Double,
     @JsonProperty("longitude")
-    var longitude: String
+    var longitude: Double
 )

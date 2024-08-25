@@ -7,6 +7,4 @@ object UserExistException : BusinessException(UserError.USER_EXIST) {
 
     private fun readResolve(): Any = UserExistException
 
-    val EXCEPTION: UserExistException = UserExistException
-
 }

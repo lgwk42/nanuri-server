@@ -28,7 +28,7 @@ class AuthService (
 
     fun signUp(request: SignUpRequest) {
         if(userJpaRepository.existsByPhoneNumber(request.phoneNumber)) {
-            throw UserExistException.EXCEPTION
+            throw UserExistException
         }
         save(request)
     }
@@ -36,11 +36,11 @@ class AuthService (
     fun signIn(request: SignInRequest): JsonWebTokenResponse {
         val user: User = userJpaRepository.findByPhoneNumber(request.phoneNumber)
             .map { userEntity -> User.toUser(userEntity) }
-            ?.orElseThrow { UserNotFoundException.EXCEPTION }
-            ?: throw UserNotFoundException.EXCEPTION
+            ?.orElseThrow { UserNotFoundException }
+            ?: throw UserNotFoundException
         val password: String = user.password
         if (!encoder.matches(request.password, password))
-            throw PasswordWrongException.EXCEPTION
+            throw PasswordWrongException
         return JsonWebTokenResponse(
             accessToken = jwtProvider.generateAccessToken(request.phoneNumber, user.userRole),
             refreshToken = jwtProvider.generateRefreshToken(request.phoneNumber, user.userRole),

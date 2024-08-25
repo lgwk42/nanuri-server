@@ -7,6 +7,4 @@ object UserNotFoundException : BusinessException(UserError.USER_NOT_FOUND) {
 
     private fun readResolve(): Any = UserNotFoundException
 
-    val EXCEPTION: UserNotFoundException = UserNotFoundException
-
 }

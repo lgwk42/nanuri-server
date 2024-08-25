@@ -7,6 +7,4 @@ object PasswordWrongException : BusinessException(UserError.PASSWORD_WRONG) {
 
     private fun readResolve(): Any = PasswordWrongException
 
-    val EXCEPTION: PasswordWrongException = PasswordWrongException
-
 }

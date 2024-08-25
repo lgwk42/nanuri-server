@@ -35,7 +35,7 @@ class CustomUserDetails: UserDetails {
     }
 
     override fun getUsername(): String {
-        return user.email
+        return user.name
     }
 
     override fun isAccountNonExpired(): Boolean {
