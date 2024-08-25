@@ -4,6 +4,8 @@ import com.project.authtemplate.global.common.entity.BaseEntity
 import com.project.authtemplate.domain.user.domain.enum.UserRole
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import lombok.experimental.SuperBuilder
@@ -32,6 +34,7 @@ data class UserEntity(
     var longitude: Double,
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     val userRole: UserRole
 
 ) : BaseEntity()
