@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "인증 API")
 class AuthController (private val authService: AuthService) {
 
     @PostMapping("/sign-up")
+    @Operation(summary = "회원가입")
     @ResponseStatus(HttpStatus.CREATED)
     fun signUp(@RequestBody request: SignUpRequest): BaseResponse {
         authService.signUp(request)
@@ -29,6 +31,7 @@ class AuthController (private val authService: AuthService) {
     }
 
     @PostMapping("/sign-in")
+    @Operation(summary = "로그인")
     fun signIn(@RequestBody request: SignInRequest): BaseResponseData<JsonWebTokenResponse> {
         return BaseResponseData.ok(
             message = "로그인 성공",
@@ -36,6 +39,7 @@ class AuthController (private val authService: AuthService) {
     }
 
     @PostMapping("/refresh")
+    @Operation(summary = "토큰 재발급")
     fun refresh(@RequestBody request: RefreshTokenRequest): BaseResponseData<RefreshTokenResponse> {
         return BaseResponseData.ok(
             message = "토큰 재발급 성공",
