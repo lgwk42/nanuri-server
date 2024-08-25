@@ -6,7 +6,7 @@ plugins {
     kotlin("plugin.jpa") version "1.9.24"
     kotlin("jvm") version "1.9.24"
     kotlin("plugin.spring") version "1.9.24"
-    kotlin("kapt") version "1.9.23"
+    kotlin("kapt") version "1.9.24"
 }
 
 group = "com.project"
@@ -38,6 +38,8 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-impl:0.12.5")
     implementation("io.jsonwebtoken:jjwt-jackson:0.12.5")
     runtimeOnly("com.mysql:mysql-connector-j")
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.4.1")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.24")
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
