@@ -62,7 +62,7 @@ class JwtExtract(
 
     fun getUsername(token: String): String {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).payload.get(
-            "email",
+            "phoneNumber",
             String::class.java
         )
     }
