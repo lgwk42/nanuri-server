@@ -18,7 +18,7 @@ class RoomEntity(
 
     @Id
     @Column(name = "id", nullable = false)
-    val _id: UUID? = null,
+    private val _id: UUID? = null,
 ) {
     val id get() = _id!!
 }
