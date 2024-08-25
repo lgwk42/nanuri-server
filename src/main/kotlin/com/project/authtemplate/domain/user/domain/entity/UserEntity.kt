@@ -16,14 +16,20 @@ import org.hibernate.annotations.DynamicUpdate
 data class UserEntity(
 
     @Id
-    @Column( unique = true)
-    var email: String,
+    @Column(nullable = false, unique = true)
+    var phoneNumber: String,
 
     @Column(nullable = false)
     var name: String,
 
     @Column(nullable = false)
     var password: String,
+
+    @Column(nullable = false)
+    var latitude: String,
+
+    @Column(nullable = false)
+    var longitude: String,
 
     @Column(nullable = false)
     val userRole: UserRole
