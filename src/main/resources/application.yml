@@ -10,8 +10,8 @@ spring:
 
   security:
     user:
-      name: [name]
-      password: [password]
+      name: nanuri
+      password: nanuri1234!
 
   jpa:
     database: mysql
@@ -26,6 +26,6 @@ spring:
 
 application:
   jwt:
-    secretKey: [key]
+    secretKey: a51044330f01744d8d9c88632228a39ab4bb306274ae30277aff215918445a2c
     expiration: 172800000    # 48시간
     refreshExpiration: 604800000   # 7일
