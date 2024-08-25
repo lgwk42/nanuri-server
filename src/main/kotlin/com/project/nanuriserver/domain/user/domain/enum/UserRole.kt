@@ -1,9 +1,5 @@
 package com.project.nanuriserver.domain.user.domain.enum
 
-enum class UserRole(s: String) {
-
+enum class UserRole(val key: String) {
     USER("ROLE_USER");
-
-    val key: String? = null
-
 }
