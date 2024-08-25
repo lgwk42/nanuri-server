@@ -1,7 +1,5 @@
 package com.project.nanuriserver.global.jdsl
 
-import com.linecorp.kotlinjdsl.dsl.jpql.Jpql
-import com.linecorp.kotlinjdsl.dsl.jpql.JpqlDsl
 import com.linecorp.kotlinjdsl.dsl.jpql.jpql
 import com.linecorp.kotlinjdsl.querymodel.jpql.JpqlQueryable
 import com.linecorp.kotlinjdsl.querymodel.jpql.select.SelectQuery
@@ -17,13 +15,12 @@ class JdslExecutorSupport(
     private val entityManager: EntityManager,
     private val jpqlRenderContext: RenderContext,
 ) {
-    fun <T : Any> findAll(init: JpqlDsl.() -> JpqlQueryable<SelectQuery<T>>): List<T> {
-        return kotlinJdslJpqlExecutor
-            .findAll(CustomJpql, init)
+    fun <T : Any> findAllNotNull(init: CustomJpql.() -> JpqlQueryable<SelectQuery<T>>): List<T> {
+        return kotlinJdslJpqlExecutor.findAll(CustomJpql, init)
             .filterNotNull()
     }
 
-    fun <T : Any> getOrNull(init: Jpql.() -> JpqlQueryable<SelectQuery<T>>): T? {
+    fun <T : Any> getOrNull(init: CustomJpql.() -> JpqlQueryable<SelectQuery<T>>): T? {
         return entityManager
             .createQuery(jpql(CustomJpql, init), jpqlRenderContext)
             .apply { setMaxResults(1) }

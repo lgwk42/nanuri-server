@@ -1,8 +1,6 @@
 package com.project.nanuriserver.domain.room.domain.entity
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import java.util.UUID
 
 @Entity(name = "tb_room")

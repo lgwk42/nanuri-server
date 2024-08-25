@@ -34,7 +34,7 @@ data class UserEntity(
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.UUID)
-    private var _uuid: UUID? = null,
+    val _uuid: UUID? = null, // for jpql, it's needed for identifier
 ) : BaseEntity() {
     val uuid get() = _uuid!!
 }
