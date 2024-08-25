@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.project"
-version = "2.0.0"
+version = "0.0.1"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
