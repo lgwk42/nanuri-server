@@ -25,14 +25,6 @@ class RoomController(
         return BaseResponseData.of(HttpStatus.CREATED, "방이 생성 되었습니다.", createdUuid)
     }
 
-    @PatchMapping("/{uuid}")
-    @Operation(summary = "채팅방 수정")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun edit(@PathVariable uuid: String, @Valid request: EditRoomRequest) {
-        val roomId = UUIDSafe(uuid)
-        roomService.editTitle(roomId, request.title)
-    }
-
     @GetMapping
     @Operation(summary = "채팅방 리스트")
     fun rooms() {

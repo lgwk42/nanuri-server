@@ -13,11 +13,9 @@ data class RoomEntity(
     @Column(name = "user_second_id", nullable = false, updatable = false)
     val userSecond: UUID,
 
-    @Column(nullable = true)
-    val title: String? = null,
-
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private val _id: UUID? = null,
 ) {
     val id get() = _id!!
