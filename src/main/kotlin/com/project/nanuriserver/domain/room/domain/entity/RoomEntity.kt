@@ -6,12 +6,12 @@ import jakarta.persistence.Id
 import java.util.UUID
 
 @Entity(name = "tb_room")
-class RoomEntity(
+data class RoomEntity(
     @Column(name = "user_first_id", nullable = false, updatable = false)
-    val userFirst: String,
+    val userFirst: UUID,
 
     @Column(name = "user_second_id", nullable = false, updatable = false)
-    val userSecond: String,
+    val userSecond: UUID,
 
     @Column(nullable = true)
     val title: String? = null,
