@@ -1,4 +1,4 @@
-package com.project.nanuriserver.domain.user.dto
+package com.project.nanuriserver.domain.user.client.dto
 
 import com.project.nanuriserver.domain.user.domain.entity.UserEntity
 import com.project.nanuriserver.domain.user.domain.enum.UserRole

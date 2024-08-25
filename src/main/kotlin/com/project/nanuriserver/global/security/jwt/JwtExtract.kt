@@ -4,7 +4,7 @@ import com.project.nanuriserver.domain.user.domain.repository.jpa.UserJpaReposit
 import com.project.nanuriserver.domain.user.exception.UserNotFoundException
 import com.project.nanuriserver.global.security.jwt.config.JwtProperties
 import com.project.nanuriserver.global.security.jwt.exception.error.JwtErrorType
-import com.project.nanuriserver.domain.user.dto.User
+import com.project.nanuriserver.domain.user.client.dto.User
 import com.project.nanuriserver.global.security.auth.CustomUserDetails
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts

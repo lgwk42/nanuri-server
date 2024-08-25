@@ -1,6 +1,6 @@
 package com.project.nanuriserver.global.security.auth
 
-import com.project.nanuriserver.domain.user.dto.User
+import com.project.nanuriserver.domain.user.client.dto.User
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 

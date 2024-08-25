@@ -8,7 +8,7 @@ import com.project.nanuriserver.domain.auth.service.response.RefreshTokenRespons
 import com.project.nanuriserver.domain.user.domain.entity.UserEntity
 import com.project.nanuriserver.domain.user.domain.enum.UserRole
 import com.project.nanuriserver.domain.user.domain.repository.jpa.UserJpaRepository
-import com.project.nanuriserver.domain.user.dto.User
+import com.project.nanuriserver.domain.user.client.dto.User
 import com.project.nanuriserver.domain.user.exception.PasswordWrongException
 import com.project.nanuriserver.domain.user.exception.UserExistException
 import com.project.nanuriserver.domain.user.exception.UserNotFoundException
