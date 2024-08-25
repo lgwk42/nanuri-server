@@ -13,11 +13,6 @@ import java.util.UUID
 
 @Entity
 class PostEntity(
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idx: Long? = null,
-
     @Column(nullable = false)
     val title: String,
 
@@ -31,6 +26,11 @@ class PostEntity(
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    val category: Category
+    val category: Category,
 
-): BaseEntity()
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private val _id: Long? = null,
+): BaseEntity() {
+    val id get() = _id!!
+}

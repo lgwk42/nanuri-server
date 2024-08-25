@@ -5,6 +5,7 @@ import com.project.nanuriserver.domain.auth.client.request.SignInRequest
 import com.project.nanuriserver.domain.auth.client.request.SignUpRequest
 import com.project.nanuriserver.domain.auth.service.response.JsonWebTokenResponse
 import com.project.nanuriserver.domain.auth.service.response.RefreshTokenResponse
+import com.project.nanuriserver.domain.user.domain.entity.UserEntity
 import com.project.nanuriserver.domain.user.domain.enum.UserRole
 import com.project.nanuriserver.domain.user.domain.repository.jpa.UserJpaRepository
 import com.project.nanuriserver.domain.user.dto.User
@@ -19,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class AuthService (
+class AuthService(
     private val userJpaRepository: UserJpaRepository,
     private val encoder: PasswordEncoder,
     private val jwtProvider: JwtProvider,
@@ -27,7 +28,7 @@ class AuthService (
 ) {
 
     fun signUp(request: SignUpRequest) {
-        if(userJpaRepository.existsByPhoneNumber(request.phoneNumber)) {
+        if (userJpaRepository.existsByPhoneNumber(request.phoneNumber)) {
             throw UserExistException
         }
         save(request)
@@ -44,7 +45,8 @@ class AuthService (
         return JsonWebTokenResponse(
             accessToken = jwtProvider.generateAccessToken(request.phoneNumber, user.userRole),
             refreshToken = jwtProvider.generateRefreshToken(request.phoneNumber, user.userRole),
-            userRole = user.userRole)
+            userRole = user.userRole
+        )
     }
 
     fun refresh(request: RefreshTokenRequest): RefreshTokenResponse {
@@ -53,20 +55,20 @@ class AuthService (
         if (jwtExtract.checkTokenInfo(got) == JwtErrorType.ExpiredJwtException) {
             throw TokenExpiredException.EXCEPTION
         }
-        return RefreshTokenResponse(
-                jwtProvider.generateAccessToken(user.phoneNumber, user.userRole),
-            )
+        return RefreshTokenResponse(jwtProvider.generateAccessToken(user.phoneNumber, user.userRole))
     }
 
-    fun save(request: SignUpRequest){
-        userJpaRepository.save(User.toEntity(User(
-            phoneNumber = request.phoneNumber,
-            name = request.name,
-            password = encoder.encode(request.password),
-            latitude = request.latitude,
-            longitude = request.longitude,
-            userRole = UserRole.USER
-        )))
+    fun save(request: SignUpRequest) {
+        userJpaRepository.save(
+            UserEntity(
+                phoneNumber = request.phoneNumber,
+                name = request.name,
+                password = encoder.encode(request.password),
+                latitude = request.latitude,
+                longitude = request.longitude,
+                userRole = UserRole.USER
+            )
+        )
     }
 
 }
