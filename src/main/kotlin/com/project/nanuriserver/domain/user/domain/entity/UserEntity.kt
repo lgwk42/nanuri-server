@@ -10,6 +10,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import lombok.experimental.SuperBuilder
 import org.hibernate.annotations.DynamicUpdate
+import java.util.UUID
 
 @Entity
 @SuperBuilder
@@ -18,6 +19,9 @@ import org.hibernate.annotations.DynamicUpdate
 data class UserEntity(
 
     @Id
+    @Column(nullable = false)
+    var uuid: UUID,
+
     @Column(nullable = false, unique = true)
     var phoneNumber: String,
 
