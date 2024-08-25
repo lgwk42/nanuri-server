@@ -4,9 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 data class SignUpRequest(
     @JsonProperty("email")
-    val email: String,
+    val phoneNumber: String,
     @JsonProperty("name")
     val name: String,
     @JsonProperty("password")
     val password: String,
+    @JsonProperty("latitude")
+    var latitude: String,
+    @JsonProperty("longitude")
+    var longitude: String
 )

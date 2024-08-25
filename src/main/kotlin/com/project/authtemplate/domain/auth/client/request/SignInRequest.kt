@@ -5,8 +5,7 @@ import jakarta.validation.constraints.Email
 
 data class SignInRequest(
     @JsonProperty("email")
-    @field:Email
-    val email: String,
+    val phoneNumber: String,
     @JsonProperty("password")
     val password: String
 )
