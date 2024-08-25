@@ -67,8 +67,8 @@ class JwtExtract(
         )
     }
 
-    fun findUserByEmail(email: String): User {
-        val optionalUserEntity = userJpaRepository.findByEmail(email)
+    fun findUserByEmail(phoneNumber: String): User {
+        val optionalUserEntity = userJpaRepository.findByPhoneNumber(phoneNumber)
         return optionalUserEntity.map { userEntity -> User.toUser(userEntity) }?.orElseThrow { UserNotFoundException.EXCEPTION }
             ?: throw UserNotFoundException.EXCEPTION
     }

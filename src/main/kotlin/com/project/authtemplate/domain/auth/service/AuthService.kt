@@ -27,14 +27,14 @@ class AuthService (
 ) {
 
     fun signUp(request: SignUpRequest) {
-        if(userJpaRepository.existsByEmail(request.email)) {
+        if(userJpaRepository.existsByPhoneNumber(request.phoneNumber)) {
             throw UserExistException.EXCEPTION
         }
         save(request)
     }
 
     fun signIn(request: SignInRequest): JsonWebTokenResponse {
-        val user: User = userJpaRepository.findByEmail(request.email)
+        val user: User = userJpaRepository.findByPhoneNumber(request.phoneNumber)
             .map { userEntity -> User.toUser(userEntity) }
             ?.orElseThrow { UserNotFoundException.EXCEPTION }
             ?: throw UserNotFoundException.EXCEPTION
@@ -42,8 +42,8 @@ class AuthService (
         if (!encoder.matches(request.password, password))
             throw PasswordWrongException.EXCEPTION
         return JsonWebTokenResponse(
-            accessToken = jwtProvider.generateAccessToken(request.email, user.userRole),
-            refreshToken = jwtProvider.generateRefreshToken(request.email, user.userRole),
+            accessToken = jwtProvider.generateAccessToken(request.phoneNumber, user.userRole),
+            refreshToken = jwtProvider.generateRefreshToken(request.phoneNumber, user.userRole),
             userRole = user.userRole)
     }
 
@@ -54,15 +54,17 @@ class AuthService (
             throw TokenExpiredException.EXCEPTION
         }
         return RefreshTokenResponse(
-                jwtProvider.generateAccessToken(user.email, user.userRole),
+                jwtProvider.generateAccessToken(user.phoneNumber, user.userRole),
             )
     }
 
     fun save(request: SignUpRequest){
         userJpaRepository.save(User.toEntity(User(
-            email = request.email,
+            phoneNumber = request.phoneNumber,
             name = request.name,
             password = encoder.encode(request.password),
+            latitude = request.latitude,
+            longitude = request.longitude,
             userRole = UserRole.USER
         )))
     }

@@ -17,9 +17,9 @@ class JwtProvider (private val jwtProperties: JwtProperties){
         Jwts.SIG.HS256.key().build().algorithm
     )
 
-    fun generateAccessToken(email: String, userRole: UserRole): String {
+    fun generateAccessToken(phoneNumber: String, userRole: UserRole): String {
         return Jwts.builder()
-            .claim("email",email)
+            .claim("phoneNumber",phoneNumber)
             .claim("authority", userRole)
             .issuedAt(Date(System.currentTimeMillis()))
             .expiration(Date(System.currentTimeMillis() + jwtProperties.expiration))
@@ -27,9 +27,9 @@ class JwtProvider (private val jwtProperties: JwtProperties){
             .compact()
     }
 
-    fun generateRefreshToken(email: String, userRole: UserRole): String {
+    fun generateRefreshToken(phoneNumber: String, userRole: UserRole): String {
         return Jwts.builder()
-            .claim("email",email)
+            .claim("phoneNumber",phoneNumber)
             .claim("authority", userRole)
             .issuedAt(Date(System.currentTimeMillis()))
             .expiration(Date(System.currentTimeMillis() + jwtProperties.refreshExpiration))
