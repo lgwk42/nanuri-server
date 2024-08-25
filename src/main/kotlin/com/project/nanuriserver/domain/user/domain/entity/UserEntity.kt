@@ -2,12 +2,7 @@ package com.project.nanuriserver.domain.user.domain.entity
 
 import com.project.nanuriserver.global.common.entity.BaseEntity
 import com.project.nanuriserver.domain.user.domain.enum.UserRole
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import lombok.experimental.SuperBuilder
 import org.hibernate.annotations.DynamicUpdate
 import java.util.UUID
@@ -17,11 +12,6 @@ import java.util.UUID
 @DynamicUpdate
 @Table(name = "tb_user")
 data class UserEntity(
-
-    @Id
-    @Column(nullable = false)
-    var uuid: UUID,
-
     @Column(nullable = false, unique = true)
     var phoneNumber: String,
 
@@ -39,6 +29,12 @@ data class UserEntity(
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    val userRole: UserRole
+    val userRole: UserRole,
 
-) : BaseEntity()
+    @Id
+    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private var _uuid: UUID? = null,
+) : BaseEntity() {
+    val uuid get() = _uuid!!
+}

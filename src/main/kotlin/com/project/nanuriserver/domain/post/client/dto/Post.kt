@@ -2,12 +2,11 @@ package com.project.nanuriserver.domain.post.client.dto
 
 import com.project.nanuriserver.domain.post.domain.entity.PostEntity
 import com.project.nanuriserver.domain.post.domain.enum.Category
-import org.springframework.stereotype.Component
-import java.util.UUID
+import java.util.*
 
 data class Post(
 
-    val idx: Long? = null,
+    val id: Long,
     val title: String,
     val content: String,
     val author: UUID,
@@ -16,27 +15,16 @@ data class Post(
 
 ) {
 
-    @Component
-    companion object{
-        fun toUser(postEntity: PostEntity): Post {
+    companion object {
+        fun toPost(postEntity: PostEntity): Post {
             return Post(
                 title = postEntity.title,
                 content = postEntity.content,
                 author = postEntity.author,
                 imageUrl = postEntity.imageUrl,
-                category = postEntity.category
-            )
-        }
-
-        fun toEntity(post: Post): PostEntity {
-            return PostEntity(
-                title = post.title,
-                content = post.content,
-                author = post.author,
-                imageUrl = post.imageUrl,
-                category = post .category
+                category = postEntity.category,
+                id = postEntity.id
             )
         }
     }
-
 }
