@@ -1,15 +1,19 @@
 package com.project.nanuriserver.global.security.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.project.nanuriserver.global.common.dto.response.ErrorResponse
+import com.project.nanuriserver.global.exception.error.ErrorCode
+import com.project.nanuriserver.global.exception.error.ErrorProperty
 import com.project.nanuriserver.global.security.jwt.JwtExtract
+import com.project.nanuriserver.global.security.jwt.exception.error.JwtTokenError
 import com.project.nanuriserver.global.security.jwt.filter.CoroutineSecurityFilter
 import com.project.nanuriserver.global.security.jwt.filter.JwtAuthenticationFilter
-import com.project.nanuriserver.global.security.jwt.handler.JwtAuthenticationEntryPoint
+import jakarta.servlet.http.HttpServletResponse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.MediaType
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configurers.ExceptionHandlingConfigurer
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.context.SecurityContextHolder.MODE_INHERITABLETHREADLOCAL
@@ -19,25 +23,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
+import java.io.IOException
 
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig (
+class SecurityConfig(
     private val objectMapper: ObjectMapper,
-    private val jwtEntryPoint: JwtAuthenticationEntryPoint,
     private val jwtExtract: JwtExtract,
     private val coroutineSecurityFilter: CoroutineSecurityFilter
 ) {
-
-    companion object {
-        private const val USER = "ROLE_USER"
-        private const val TEACHER = "ROLE_TEACHER"
-        private const val ADMIN = "ROLE_ADMIN"
-    }
-
     @Bean
-    fun securityFilterChain(http: HttpSecurity
+    fun securityFilterChain(
+        http: HttpSecurity
     ): SecurityFilterChain {
 
         SecurityContextHolder.setStrategyName(MODE_INHERITABLETHREADLOCAL)
@@ -52,8 +50,16 @@ class SecurityConfig (
                     SessionCreationPolicy.STATELESS
                 )
             }
-            .exceptionHandling { exceptionHandlingConfigurer: ExceptionHandlingConfigurer<HttpSecurity> ->
-                exceptionHandlingConfigurer.authenticationEntryPoint(jwtEntryPoint)
+            .exceptionHandling {
+                it.accessDeniedHandler { _, response, _ ->
+                    response.send(ErrorCode.ACCESS_DENIED)
+                }
+                    .authenticationEntryPoint { req, res, _ ->
+                        res.send(
+                            if (req.getHeader("Authorization") != null) JwtTokenError.JWT_ERROR
+                            else JwtTokenError.JWT_EMPTY_EXCEPTION
+                        )
+                    }
             }
             .authorizeHttpRequests {
                 it
@@ -62,9 +68,24 @@ class SecurityConfig (
                     .requestMatchers("/check/generate").permitAll()
                     .anyRequest().authenticated()
             }
-            .addFilterBefore(JwtAuthenticationFilter(objectMapper, jwtExtract), UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(
+                JwtAuthenticationFilter(objectMapper, jwtExtract),
+                UsernamePasswordAuthenticationFilter::class.java
+            )
             .addFilterBefore(coroutineSecurityFilter, UsernamePasswordAuthenticationFilter::class.java)
             .build()
+    }
+
+    private fun HttpServletResponse.send(code: ErrorProperty) {
+        val entity = ErrorResponse.create(code)
+        try {
+            status = entity.status
+            contentType = MediaType.APPLICATION_JSON_VALUE
+            characterEncoding = "UTF-8"
+            writer.write(objectMapper.writeValueAsString(entity))
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 
     @Bean

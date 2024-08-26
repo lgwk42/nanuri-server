@@ -6,5 +6,6 @@ interface ErrorProperty {
 
     val status: HttpStatus
     val message: String
+    val code: String
 
 }

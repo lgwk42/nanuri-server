@@ -15,4 +15,6 @@ enum class JwtTokenError(
     JWT_EMPTY_EXCEPTION(HttpStatus.FORBIDDEN,  "토큰을 넣어주세요."),
     JWT_NOT_SUPPORT(HttpStatus.BAD_REQUEST, "지원하지 않는 토큰");
 
+    override val code: String
+        get() = name
 }
