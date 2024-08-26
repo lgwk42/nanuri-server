@@ -20,6 +20,17 @@ class JdslExecutorSupport(
             .filterNotNull()
     }
 
+    fun <T : Any> findLimited(offset: Int, count: Int, init: CustomJpql.() -> JpqlQueryable<SelectQuery<T>>): List<T> {
+        return entityManager
+            .createQuery(jpql(CustomJpql, init), jpqlRenderContext)
+            .apply {
+                firstResult = offset
+                setMaxResults(count)
+            }
+            .resultList
+            .filterNotNull()
+    }
+
     fun <T : Any> getOrNull(init: CustomJpql.() -> JpqlQueryable<SelectQuery<T>>): T? {
         return entityManager
             .createQuery(jpql(CustomJpql, init), jpqlRenderContext)
