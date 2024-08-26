@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.UUID
 
 @RestController
 @RequestMapping("/image")
@@ -20,7 +21,7 @@ class ImageController(
 
     @PostMapping("")
     @Operation(summary = "이미지 업로드")
-    fun uploadImage(@RequestBody @Valid request: FileUploadRequest): BaseResponseData<String> {
+    fun uploadImage(@RequestBody @Valid request: FileUploadRequest): BaseResponseData<UUID> {
         return BaseResponseData.ok(
             message = "이미지 업로드 성공",
             data = imageService.uploadImage(request.name, request.file))
