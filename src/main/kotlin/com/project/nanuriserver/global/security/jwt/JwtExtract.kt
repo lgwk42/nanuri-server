@@ -13,7 +13,7 @@ import io.jsonwebtoken.UnsupportedJwtException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.stereotype.Component
-import java.nio.charset.StandardCharsets
+import java.util.*
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
@@ -22,10 +22,9 @@ class JwtExtract(
     private val jwtProperties: JwtProperties,
     private val userJpaRepository: UserJpaRepository
 ) {
-
     private val secretKey: SecretKey = SecretKeySpec(
-        this.jwtProperties.secretKey.toByteArray(StandardCharsets.UTF_8),
-        Jwts.SIG.HS256.key().build().algorithm
+        Base64.getDecoder().decode(this.jwtProperties.secretKey),
+        Jwts.SIG.HS512.key().build().algorithm
     )
 
     fun checkTokenInfo(token: String): JwtErrorType {
