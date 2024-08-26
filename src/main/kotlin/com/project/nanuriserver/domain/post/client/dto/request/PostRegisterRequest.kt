@@ -9,7 +9,7 @@ data class PostRegisterRequest(
     @JsonProperty("content")
     val content: String,
     @JsonProperty("imageUrl")
-    val imageUrl: String,
+    val imageUrl: String?,
     @JsonProperty("category")
     val category: Category
 )

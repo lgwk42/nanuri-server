@@ -23,7 +23,7 @@ class PostEntity(
     @Column(nullable = false)
     val author: UUID,
 
-    val imageUrl: String,
+    val imageUrl: String? = null,
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -35,7 +35,7 @@ class PostEntity(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private val _id: Long? = null,
+    val _id: Long? = null,
 ): BaseEntity() {
     val id get() = _id!!
 }
