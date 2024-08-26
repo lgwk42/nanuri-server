@@ -21,3 +21,6 @@ application:
     secretKey: ${JWT_SECRET}
     expiration: 172800000    # 48시간
     refreshExpiration: 604800000   # 7일
+
+azure-storage:
+  storage-connection-string: ${STORAGE_CONNECTION}
