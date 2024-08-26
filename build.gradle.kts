@@ -6,7 +6,6 @@ plugins {
     kotlin("plugin.jpa") version "1.9.24"
     kotlin("jvm") version "1.9.24"
     kotlin("plugin.spring") version "1.9.24"
-    kotlin("kapt") version "1.9.24"
 }
 
 group = "com.project"
@@ -41,8 +40,6 @@ dependencies {
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client:3.4.1")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.24")
 
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 
