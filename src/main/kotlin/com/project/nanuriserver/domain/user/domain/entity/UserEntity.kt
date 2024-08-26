@@ -3,12 +3,10 @@ package com.project.nanuriserver.domain.user.domain.entity
 import com.project.nanuriserver.global.common.entity.BaseEntity
 import com.project.nanuriserver.domain.user.domain.enum.UserRole
 import jakarta.persistence.*
-import lombok.experimental.SuperBuilder
 import org.hibernate.annotations.DynamicUpdate
 import java.util.UUID
 
 @Entity
-@SuperBuilder
 @DynamicUpdate
 @Table(name = "tb_user")
 data class UserEntity(
